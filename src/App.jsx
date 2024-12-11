@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import SearchBar from './Components/SearchBar';
+import CountryList from './Components/CountryList';
+import useSearchCountries from './Components/useSearchCountries';
 
 const App = () => {
   const [query, setQuery] = useState('');
+  const { data: countries, error } = useSearchCountries(query);
 
   const handleSearchChange = (searchTerm) => {
     setQuery(searchTerm);
@@ -11,7 +14,7 @@ const App = () => {
   return (
     <div className="app-container">
       <SearchBar onSearchChange={handleSearchChange} />
-      <h2>Búsqueda de país: {query}</h2> {/* Mostrar el query ingresado */}
+      <CountryList countries={countries} error={error} />
     </div>
   );
 };
